@@ -1,0 +1,65 @@
+	<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <!-- Add additional CSS in static file -->
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'en_ka/style.css' %}">
+  <link rel="stylesheet" href="{% static 'en_ka/css/alk-rounded-mtav-med.min.css' %}">
+</head>
+<body>
+<div class="row justify-content-center" id="satauri">
+<p>ინგლისურ-ქართული ტერმინოლოგიური ლექსიკონი</p>
+</div>
+<div class="container">
+	<div class="row justify-content-center">
+        <div class="col-md-6">
+            <form method="get" action="{{ request.get.q }}" class="form-inline" >
+                <input type="text" name="q" placeholder="ძებნა..." />
+            </form>
+        </div>
+    </div>
+</div>
+</br>
+<div class="container">
+    {% if no_results %}
+<div class="p-3 mb-2 bg-gradient-info text-red">
+    <b></b>სიტყვა/ფრაზა <q>{{ no_results }}</q> ლექსიკონში ჯერ არ არის დამატებული</b>
+        </div>
+</div>
+        {% else %}
+<div class="container">
+	<div class="row">
+		<div class="span1">
+    <h3>{{ word.word_text }}</h3>
+        </div>
+    </div>
+</div>
+
+{% for definition in word.definition_set.all %}
+<div class="container">
+<div class="row" id="ganmartebebsshua">
+    <div class="col-md-1" style=""><b><i>{{ definition.category }}</i></b></div>
+    <div class="col-md-7" style="">{{ definition.definition_text }}</div>
+{% endfor %}
+    <div class="col-md-4"><a href="#"><img src="https://i.ibb.co/KVNKdS0/dog.png" alt="dog" border="0"></a></div>
+{% endif %}
+</div></div>
+    
+</br>
+<section id="footer">
+		<div class="container">
+            Developer & Translator</br>
+            <a href="https://www.linkedin.com/in/mikheil-chkheidze-15712b65" target="_blank">M. Chkheidze</a> | <a href="https://www.proz.com/profile/2048041" target="_blank">G. Chkheidze</a>
+        </br>
+        © 2019 All Rights Reserved
+        </div>
+
+</section>
+</body>
+</html>
